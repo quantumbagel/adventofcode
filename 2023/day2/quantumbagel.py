@@ -11,16 +11,8 @@ for id, line in enumerate(file_lines):  # Iterate through each line in the file:
     line = line[where_is_the_colon + 2:]  # this removes everything but the list of numbers and colors
     valid_game = True
     list_of_instructions = []
-    tmp = []
-    # the below section of code from 17 to 24 is kinda confusing, so I'll explain it over chat (just DM me)
-    for marble_pick in line.split(", "):
-        if ";" not in marble_pick:
-            tmp.append(marble_pick)
-        else:
-            tmp.append(marble_pick.split('; ')[0])
-            list_of_instructions.append(tmp)
-            tmp = [marble_pick.split('; ')[1]]
-    list_of_instructions.append(tmp)
+    for marble_pick in line.split("; "):
+        list_of_instructions.append([i for i in marble_pick.split(', ')])
     # List_of_instructions is now [["6 blue", "3 red"], ["2 green", "1 blue"]] with each sublist representing a sequence of draws w/out replacment
     valid_game = True  # a boolean to check if the game is still valid
     for instruction in list_of_instructions:
@@ -38,4 +30,3 @@ for id, line in enumerate(file_lines):  # Iterate through each line in the file:
         id_sum += id + 1  # Add id + 1 (the game ids start at 1 but the enumerate index starts at 0)
     print(f"Game {id+1} was {valid_game}")
 print(id_sum)  # Print the answer!
-
