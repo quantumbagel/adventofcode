@@ -1,5 +1,5 @@
 # i've tried to comment this code well lol
-file_to_read = "inputs/quantumbagelinput.txt"  # which file are we going to read from?
+file_to_read = "input.txt"  # which file are we going to read from?
 file_object = open(file_to_read)
 
 file_lines = [i.replace('\n', '') for i in file_object.readlines()]
@@ -36,6 +36,6 @@ for id, line in enumerate(file_lines):  # Iterate through each line in the file:
             break
     if valid_game:  # the game was valid!
         id_sum += id + 1  # Add id + 1 (the game ids start at 1 but the enumerate index starts at 0)
-    print(f"Game {id+1} was {valid_game}")
+    print(f"Game {id+1}: {line} was {valid_game}")
 print(id_sum)  # Print the answer!
 
