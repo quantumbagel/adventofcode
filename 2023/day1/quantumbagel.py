@@ -20,10 +20,11 @@ for line in lines:
 
 final = 0
 for line in lines_with_no_letters:
+    # Get the first and last numbers from the line
     first = line[0]
     last = line[-1]
-    first_and_last_number = int(first + last)
-    final += first_and_last_number
+    first_and_last_number = int(first + last)  # Add them
+    final += first_and_last_number  # Add the total to the answer
 
 
 print(final)
