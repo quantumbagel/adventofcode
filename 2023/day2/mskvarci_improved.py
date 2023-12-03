@@ -17,17 +17,27 @@ for line in open('inputs/maxinput.txt'):
     # flag for violations
     violation = 0
 
+    redTotal = 0
+    greenTotal = 0
+    blueTotal = 0
+
     for term in terms:
         subterm = term.split(' ')
         if subterm[1] == 'green':
-            if int(subterm[0]) > greenMax:
-                violation = 1
+            greenTotal = greenTotal + int(subterm[0])
         if subterm[1] == 'red':
-            if int(subterm[0]) > redMax:
-                violation = 1
+            redTotal = redTotal + int(subterm[0])
         if subterm[1] == 'blue':
-            if int(subterm[0]) > blueMax:
-                violation = 1
+            blueTotal = blueTotal + int(subterm[0])
+
+    if greenTotal > greenMax:
+        violation = 1
+    if redTotal > redMax:
+        violation = 1
+    if blueTotal > blueMax:
+        violation = 1
+
+
     if violation == 0:
         print('nonviolation' + ' ' + terms[0].split()[1])
     if violation == 0:
