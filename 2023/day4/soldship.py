@@ -6,13 +6,12 @@
 predetermined = []  # The predetermined "winning" numbers
 yours = []  # The scratch card's numbers that you uncovered
 
-winning_numbers = []
-your_numbers = []
+
 counter = 0
 sum = 0
 lines = []
 
-with open("/Users/isaacschool/Desktop/aocd4input.txt") as file:
+with open("input.txt") as file:
     raw_lines = file.readlines()
 for line in raw_lines:
     removed = line.removesuffix('\n')
@@ -22,16 +21,12 @@ for line in raw_lines:
 print(lines)
 
 for thing in lines:
-    print(thing)
-
-
-# Here is where I split out the string into sections
     points = 0
     splitted = thing.split('|')
-
+    winning_numbers = []  # move reset to here
+    your_numbers = []
     # Section Start
-
-    for k in range(1):
+    for k in range(2):  # increased range
         segmented = splitted[k]
         resegmented = segmented.split(" ")
         for i in resegmented:
@@ -40,16 +35,11 @@ for thing in lines:
                     winning_numbers.append(i)
                 else:
                     your_numbers.append(i)
-    print(your_numbers)
-    print(winning_numbers)
-                
     for j in your_numbers:
         if j in winning_numbers:
             points += 1
 
     if points != 0:
-        sum = 2 ** (points-1)
-    break
-    
+        sum += 2 ** (points-1)  # +=
 
-print(sum)
+
