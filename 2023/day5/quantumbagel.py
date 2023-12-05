@@ -1,5 +1,5 @@
 
-def day_1():
+def part_1():
     lines = [i.removesuffix('\n') for i in open('input.txt').readlines()]
     seed_numbers = [int(j) for j in lines[0].split(': ')[1].split()]
     maps = []
@@ -27,7 +27,7 @@ def day_1():
     print(lowest_loc)
 
 
-def day_2():
+def part_2():
     lines = [i.removesuffix('\n') for i in open('inputs/quantumbagelinput.txt').readlines()]
 
     def is_overlap(a, b):
@@ -85,6 +85,4 @@ def day_2():
     print(lowest_loc)
 
 # day_1()
-
-import time
 day_2()
