@@ -21,11 +21,13 @@ def access_map(maps: dict[str, list[tuple[int, int, int]]], map_name: str, src: 
 def map_ranges(the_map: list[tuple[int, int, int]], src_ranges: list[tuple[int, int]]) -> list[tuple[int, int]]:
     rngs_to_check = src_ranges.copy()
     new_ranges = []
-    map_ranges_checked = 0
+    map_ranges_checked = 0  # This was meant to save time when checking maps that are definitely lower than our ranges
+    # ^ this breaks the code for some reason, not sure why yet
     while len(rngs_to_check) > 0:
         rng = rngs_to_check.pop(0)
         src_start = rng[0]
         src_length = rng[1]
+        # Loop over all map ranges
         for i in range(map_ranges_checked, len(the_map)):
             map_start = the_map[i][0]
             map_length = the_map[i][1]
@@ -36,12 +38,11 @@ def map_ranges(the_map: list[tuple[int, int, int]], src_ranges: list[tuple[int, 
                 map_ranges_checked += 1  # Update this counter so we don't count this range for other src ranges
                 continue
 
-            # Src range starts before lowest math range
+            # Src range starts before map range
             if src_start < map_start:
                 # Src range ends before map rng starts, no need for fancy shenanigans
                 if src_start + src_length < map_start:
                     new_ranges.append(rng)
-                    map_ranges_checked += 1
                     break
 
                 new_ranges.append((src_start, map_start - src_start))
@@ -52,7 +53,8 @@ def map_ranges(the_map: list[tuple[int, int, int]], src_ranges: list[tuple[int, 
             if src_start + src_length > map_start + map_length:
                 rngs_to_check.insert(0, (map_start + map_length, src_length + src_start - (map_start + map_length)))
                 src_length = map_start + map_length - src_start
-                map_ranges_checked += 1
+                # maps_ranges_checked += 1  # This would work if we could guarantee that source ranges don't overlap.
+                # Sadly, we can't.
 
             # Src range fits inside the map range
             skip = src_start - map_start
@@ -117,7 +119,7 @@ def part_two():
     file_lines = [line.removesuffix('\n') for line in file]
 
     seed_nums = [int(s) for s in file_lines[0].split(': ')[1].split()]
-    seed_ranges = [(seed_nums[2 * i], seed_nums[2 * i + 1]) for i in range(len(seed_nums) // 2)]
+    seed_ranges = sorted([(seed_nums[2 * i], seed_nums[2 * i + 1]) for i in range(len(seed_nums) // 2)])
 
     maps = {}
     working_name = ""
