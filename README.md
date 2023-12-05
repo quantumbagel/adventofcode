@@ -110,7 +110,7 @@ The Advent Of Code(rs)'s solutions to AoC 2023 (and hopefully beyond)
 <details>
 <summary>@mskvarci</summary>
   
-1.  :x: Incomplete 
+1.  ✅ Complete 
 2. :x: Incomplete 
 3. :x: Incomplete 
 4. :x: Incomplete 
