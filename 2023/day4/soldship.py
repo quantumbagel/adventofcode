@@ -1,6 +1,7 @@
 # quantumsoldship's Horribly Inefficient Code that Gets the Job Done
 
 # I hope I commented well.
+# Also, thanks to quantumbagel for the help
 
 # Determining variables
 predetermined = []  # The predetermined "winning" numbers
