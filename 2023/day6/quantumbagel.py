@@ -20,6 +20,9 @@ def part_2():
         distance = hold_time * (raw_lines[0] - hold_time)
         if distance > raw_lines[1]:
             beat_times += 1
+        else:
+            if beat_times:
+                break
     total_mult *= beat_times
     print(total_mult)
 
