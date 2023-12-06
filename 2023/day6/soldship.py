@@ -1,4 +1,3 @@
-# This is a manual version. I just typed the numbers in. It was faster than creating a readlines file lol
 import math
 def count_ways_to_beat_record(T, D):
     count = 0
@@ -6,7 +5,16 @@ def count_ways_to_beat_record(T, D):
         if t * (T - t) > D:
             count += 1
     return count
-races = [(48938595,296192812361391)]
+races = []
+length = input('How many times/distances are there?')
+for i in range(int(length)):
+    races.append([int(input('time? ')),int(input('distance? '))])    
+
 ways_to_win = [count_ways_to_beat_record(T, D) for T, D in races]
 result = math.prod(ways_to_win)
 print(result)
+
+# BOOOOOOM! #
+# 15 Lines #
+# This accepts all inputs and variables, all in 15 lines. #
+# Let's gooooo! #
