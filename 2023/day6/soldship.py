@@ -14,7 +14,7 @@ ways_to_win = [count_ways_to_beat_record(T, D) for T, D in races]
 result = math.prod(ways_to_win)
 print(result)
 
-# BOOOOOOM! #
-# 15 Lines #
-# This accepts all inputs and variables, all in 15 lines. #
-# Let's gooooo! #
+# BOOOOOOM!
+# 15 Lines
+# This accepts all inputs and variables, all in 15 lines.
+# Let's gooooo!
