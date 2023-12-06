@@ -83,7 +83,7 @@ The Advent Of Code(rs)'s solutions to AoC 2023 (and hopefully beyond)
 1. ✅ Complete
 2. :x: Incomplete 
 3. :x: Incomplete 
-4. :x: Incomplete 
+4. ✅ Complete 
 5. :x: Incomplete 
 6. :x: Incomplete
 7. :x: Incomplete
