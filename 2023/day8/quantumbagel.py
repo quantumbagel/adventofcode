@@ -79,5 +79,4 @@ def part_2():
         lcm = lcm * i // math.gcd(lcm, i)
     print(lcm)
 
-
 part_2()
