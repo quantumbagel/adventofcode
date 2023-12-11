@@ -1,3 +1,6 @@
+import time
+
+
 def part_one():
     file = open("inputs/tylerinput.txt")
     total = 0
@@ -55,5 +58,7 @@ def part_two():
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     # part_one()
     part_two()
+    print(str(time.time() - start_time) + " s")
