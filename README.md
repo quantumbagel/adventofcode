@@ -58,8 +58,8 @@ The Advent Of Code(rs)'s solutions to AoC 2023 (and hopefully beyond)
 7. ✅ Incomplete
 8. ✅ Incomplete
 9. ✅ Incomplete
-10. :x: Incomplete
-11. :x: Incomplete
+10. ✅ Incomplete
+11. ✅ Incomplete
 12. :x: Incomplete
 13. :x: Incomplete
 14. :x: Incomplete
