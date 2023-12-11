@@ -38,19 +38,22 @@ def part_two():
 
     expansion_const = 1000000
 
-    # Use a distance map to expand the space between galaxies
+    # Use a distance maps to expand the space between galaxies
     # without expanding the universe array.
-    distances = [[[1, 1] for _ in line] for line in basic_universe]
+    distance_x = []
+    distance_y = []
     for y, row in enumerate(basic_universe):
         if '#' not in row:
-            for dist in distances[y]:
-                dist[1] = expansion_const
+            distance_y.append(expansion_const)
+        else:
+            distance_y.append(1)
 
     for x in range(len(basic_universe[0])):
         column = [row[x] for row in basic_universe]
         if '#' not in column:
-            for row in distances:
-                row[x][0] = expansion_const
+            distance_x.append(expansion_const)
+        else:
+            distance_x.append(1)
 
     # Find all galaxies. Search through the basic universe
     # to find the index pos of the galaxies, but use the distance map to
@@ -62,8 +65,8 @@ def part_two():
         for i, char in enumerate(row):
             if char == '#':
                 galaxies.append((x, y))
-            x += distances[j][i][0]
-        y += distances[j][0][1]
+            x += distance_x[i]
+        y += distance_y[j]
 
     total = 0
     for i, g1 in enumerate(galaxies):
