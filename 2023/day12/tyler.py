@@ -1,3 +1,4 @@
+import time
 from itertools import combinations
 
 
@@ -35,20 +36,63 @@ def num_valid_arrangements(template, counts):
     return total
 
 
-def num_valid_arrangements_optimized(template: str, counts: list[int]):
-    simplified = [_ for _ in template.split('.') if _ != '']
-    segment_diff = len(counts) - len(simplified)
+# This is shamelessly stolen from Julian, all credit to him.
+# All I did was comment it so you could have a fraction of an idea
+# of what the heck is going on here.
+def num_valid_arrangements_optimized(segments: list[str], counts: list[int], cache={}):
+    # Use a caching system to save time
+    key = "|".join(map(str, counts))
+    key += "-" + ":".join(segments)
+    if key in cache:
+        # print("Used cache on key " + key)
+        return cache[key]
 
-    print("----")
-    print(simplified)
+    if len(segments) <= 0:
+        if len(counts) > 0:
+            return 0
+        return 1
 
-    if segment_diff == 0:
-        edge_space = [len(seg) - counts[i] for i, seg in enumerate(simplified)]
-        num_arr = 1
-        for space in edge_space:
-            num_arr *= space + 1
-        print(num_arr)
-        return num_arr
+    if len(counts) <= 0:
+        # No more damaged springs should exist. If we find one, this is an invalid arrangement
+        for segment in segments:
+            if '#' in segment:
+                return 0
+        # Otherwise, we're all good
+        return 1
+
+    segment = segments[0]
+    count = counts[0]
+
+    if count > len(segment) and "#" in segment:
+        return 0
+
+    # Recursion time
+    num_arr = 0
+
+    # Simulate cases where the required count is in this segment
+    for i in range(len(segment) - count + 1):
+        left = segment[:i]  # Everything to the left of the possibly damaged cluster
+
+        if '#' in left:  # We've passed the first guaranteed damaged spring, no more to check for this segment
+            break
+
+        right = segment[i + count:]  # Everything to the right of the possibly damaged cluster
+
+        if right.startswith('#'):  # A damaged cluster must be followed by a '.' to be its own cluster
+            continue
+
+        new_segments = segments[1:]  # Splitting the segments
+        if len(right) > 1:  # Segments less than length 2 aren't worth checking
+            new_segments.insert(0, right[1:])  # First char of right has to be a '.', don't include it
+        num_arr += num_valid_arrangements_optimized(new_segments, counts[1:])
+
+    # Account for case where this segment is all functional springs.
+    # Only possible if there are no guaranteed damaged springs.
+    if '#' not in segment:
+        num_arr += num_valid_arrangements_optimized(segments[1:], counts)
+
+    cache[key] = num_arr
+    return num_arr
 
 
 def part_one():
@@ -61,7 +105,6 @@ def part_one():
         counts = [int(s) for s in line.split()[1].split(',')]
 
         total += num_valid_arrangements(template, counts)
-        num_valid_arrangements_optimized(template, counts)
     print(total)
 
 
@@ -71,38 +114,16 @@ def part_two():
     total = 0
     for line in file:
         line = line.removesuffix('\n')
-        template = line.split()[0]
-        counts = [int(s) for s in line.split()[1].split(',')]
+        spring_list = ((line.split()[0] + '?') * 5)[:-1]
+        segments = [_ for _ in spring_list.split('.') if _]
+        counts = [int(s) for s in line.split()[1].split(',')] * 5
+        total += num_valid_arrangements_optimized(segments, counts)
 
-        # THIS METHOD DOESN'T WORK.
-        # IT RELIES ON A SHORTCUT THAT ISN'T ALWAYS TRUE.
-        # TRY TO THINK OF A WAY TO ACTUALLY OPTIMIZE THIS PROCESS.
-        template_front = "?" + template
-        counts_front = counts.copy()
-        counts_front.insert(0, counts_front.pop())
-        template_back = template + "?"
-        counts_back = counts.copy()
-        counts_back.append(counts_back.pop(0))
-
-        num_normal_arr = num_valid_arrangements(template, counts)
-        max_from_front = max(num_valid_arrangements(template_front, counts),
-                             num_valid_arrangements(template_front, counts_front))
-        max_from_back = max(num_valid_arrangements(template_back, counts),
-                            num_valid_arrangements(template_back, counts_back))
-
-        if template[0] == template[-1]:
-            num_extra = max(max_from_front, max_from_back)
-        elif template[-1] != '.':
-            num_extra = max_from_back
-        elif template[0] != '.':
-            num_extra = max_from_front
-        else:
-            num_extra = max_from_front
-
-        total += num_normal_arr * (num_extra ** 4)
     print(total)
 
 
 if __name__ == "__main__":
-    part_one()
-    # part_two()
+    start_time = time.time()
+    # part_one()
+    part_two()
+    print(str(time.time() - start_time) + " s")

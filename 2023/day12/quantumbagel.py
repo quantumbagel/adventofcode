@@ -49,7 +49,7 @@ def count_placements(counts, clusters, cache):
         left = cluster[:i]
 
         if "#" in left:
-            continue
+            break
 
         right = cluster[i + count:]
 
@@ -70,7 +70,7 @@ def count_placements(counts, clusters, cache):
 
 def part_2():
     total = 0
-    for cr, spring_line in enumerate(open('inputs/quantumbagelinput.txt')):
+    for cr, spring_line in enumerate(open('input.txt')):
         spring = ((spring_line.split()[0] + "?") * 5)[:-1]
         counts = [int(j) for j in spring_line.split()[1].split(",")*5]
         clusters = get_clusters(spring)
