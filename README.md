@@ -27,12 +27,12 @@ The Advent Of Code(rs)'s solutions to AoC 2023 (and hopefully beyond)
 7. ✅ Complete
 8. ✅ Complete
 9. ✅ Complete
-10. :x: Incomplete
-11. :x: Incomplete
-12. :x: Incomplete
-13. :x: Incomplete
-14. :x: Incomplete
-15. :x: Incomplete
+10. Part 1 Complete
+11. ✅ Complete
+12. ✅ Complete
+13. Part 1 Complete
+14. ✅ Complete
+15. ✅ Complete
 16. :x: Incomplete
 17. :x: Incomplete
 18. :x: Incomplete
@@ -53,16 +53,16 @@ The Advent Of Code(rs)'s solutions to AoC 2023 (and hopefully beyond)
 2. ✅ Complete
 3. ✅ Complete
 4. ✅ Complete
-5. ✅ Incomplete 
-6. ✅ Incomplete
-7. ✅ Incomplete
-8. ✅ Incomplete
-9. ✅ Incomplete
-10. ✅ Incomplete
-11. ✅ Incomplete
-12. ✅ Incomplete
-13. :x: Incomplete
-14. :x: Incomplete
+5. ✅ Complete
+6. ✅ Complete
+7. ✅ Complete
+8. ✅ Complete
+9. ✅ Complete
+10. ✅ Complete
+11. ✅ Complete
+12. ✅ Complete
+13. ✅ Complete
+14. ✅ Complete
 15. :x: Incomplete
 16. :x: Incomplete
 17. :x: Incomplete
