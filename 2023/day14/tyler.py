@@ -55,22 +55,55 @@ def north(rows: list[str]) -> list[str]:
     return rows
 
 
+def better_north(rows: list[str]) -> list[str]:
+    for c in range(len(rows[0])):
+        rounds = 0
+        first_space_idx = 0
+        searching_for_space = True
+        for r, row in enumerate(rows):
+            char = row[c]
+            if char == '#':
+                # Move rocks
+                for i in range(rounds):
+                    target = rows[first_space_idx + i]
+                    rows[first_space_idx + i] = target[:c] + 'O' + target[c + 1:]
+                first_space_idx = r + 1
+                searching_for_space = True
+                rounds = 0
+                continue
+            if char == 'O' and not searching_for_space:
+                rows[r] = row[:c] + '.' + row[c + 1:]
+                rounds += 1
+                continue
+            if char == '.' and searching_for_space:
+                first_space_idx = r
+                searching_for_space = False
+                continue
+
+        if rounds != 0:
+            # Move rocks
+            for i in range(rounds):
+                target = rows[i + first_space_idx]
+                rows[i + first_space_idx] = target[:c] + 'O' + target[c + 1:]
+    return rows
+
+
 def south(rows: list[str]) -> list[str]:
     rows.reverse()
-    rows = north(rows)
+    rows = better_north(rows)
     rows.reverse()
     return rows
 
 
 def west(rows: list[str]) -> list[str]:
     columns = [''.join([row[i] for row in rows]) for i in range(len(rows[0]))]
-    columns = north(columns)
+    columns = better_north(columns)
     return [''.join([column[i] for column in columns]) for i in range(len(columns[0]))]
 
 
 def east(rows: list[str]) -> list[str]:
     columns = [''.join([row[i] for row in rows]) for i in reversed(range(len(rows[0])))]
-    columns = north(columns)
+    columns = better_north(columns)
     return [''.join([column[i] for column in reversed(columns)]) for i in range(len(columns[0]))]
 
 
