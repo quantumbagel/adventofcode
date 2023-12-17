@@ -16,9 +16,30 @@ def part_one():
 
 
 def part_two():
-    file = open("input.txt")
+    file = open("inputs/tylerinput.txt")
+    boxes = [{} for _ in range(256)]
+    for inst in file.readline().removesuffix('\n').split(','):
+        if '=' in inst:
+            label = inst.split('=')[0]
+            focal_length = int(inst.split('=')[1])
+            box_num = hash(label)
+            boxes[box_num][label] = focal_length
+            continue
+
+        label = inst.split('-')[0]
+        box_num = hash(label)
+        boxes[box_num].pop(label, None)
+
+    total_power = 0
+    for box_num, box in enumerate(boxes):
+        slot = 0
+        for label in box:
+            slot += 1
+            total_power += (box_num + 1) * slot * box[label]
+
+    print(total_power)
 
 
 if __name__ == "__main__":
-    part_one()
-    # part_two()
+    # part_one()
+    part_two()
